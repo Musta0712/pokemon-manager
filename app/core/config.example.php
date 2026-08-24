@@ -1,7 +1,7 @@
 <?php
 return [
-    'db_host' => '127.0.0.1',
-    'db_user' => 'root',
-    'db_pass' => 'tu_contraseña_aqui',
-    'db_name' => 'pokemoncitos',
+    'db_host' => 'sql307.infinityfree.com',
+    'db_user' => 'if0_42737760',
+    'db_pass' => 'Sandia4you',
+    'db_name' => 'if0_42737760_pokemon',
 ];

@@ -1,0 +1,334 @@
+
+                                                                    /*Jueves 13 de noviembre*/
+
+/*
+
+Estos comentarios son para poner las caracteristicas que he puesto en el css porque me he pasado un poco la verdad (Hay cosas que he buscado por internet).
+
+*Selector universal* (*) y box-sizing:
+    - * { margin: 0; padding: 0; box-sizing: border-box; }
+    - Normaliza márgenes y paddings, y hace que el ancho y alto incluyan padding y border
+
+Gradientes lineales:
+    - background: linear-gradient(135deg, #f0f4ff, #d9e4ff);
+    - Permite transiciones suaves entre colores de fondo, con dirección angular
+
+Grid layout:
+    - display: grid; grid-template-columns: repeat(auto-fit, minmax(...));
+    - Auto ajusta columnas según el ancho del contenedor y asegura diseño responsivo.
+    - gap: define el espacio entre filas y columnas
+
+Transiciones y transformaciones:
+    - transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transform: translateY(-4px);
+    Crea animaciones suaves en hover para tarjetas, levantándolas y cambiando sombra
+
+Uso de pseudo-clases:
+    - .tipo-card:hover, .pokemon-card:hover
+    - Cambia estilos dinámicamente cuando el usuario pasa el cursor por encima
+
+Colores dinámicos por tipo:
+    - tipo-card.Fuego { background: #EE8130; }
+    - Asocia colores a clases dinámicamente generadas desde PHP para diferenciar tipos de Pokémon
+
+Bordes y sombreado:
+    - box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    - border-top: 5px solid #3b82f6;
+    - Añade profundidad visual y jerarquía a los elementos
+
+Responsive design:
+    - @media (max-width: 768px) { ... }
+    - Ajusta padding y layout para pantallas más pequeñas
+
+Tipografía avanzada:
+    - font-family: "Poppins", sans-serif;
+    - Usar fuentes externas con fallback, y control de tamaño dentro de tarjetas
+
+Uso de variables de color semánticas implícitas:
+    - Se define un color distinto para cada tipo de Pokémon
+
+*/
+
+                                                                        /*Domingo 9/11*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ffe4f0, #ffd9e8);
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/*  Encabezados  */
+h1, h2, h3, h4 {
+    color: #e6535a;
+    margin-bottom: 10px;
+}
+
+h2 {
+    border-bottom: 3px solid #d8332d;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-top: 30px;
+}
+
+/*  Contenedores  */
+section, div {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+}
+
+/*  Separadores  */
+hr {
+    border: none;
+    height: 2px;
+    background: #ec407a;
+    margin: 40px 0;
+    border-radius: 2px;
+}
+
+                                                                                    /*Domingo 09/11*/
+
+/* TARJETAS DE TIPOS POKEMON */
+.tipos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.tipo-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    font-weight: 600;
+    border-top: 5px solid #ec407a;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    color: #000;
+}
+
+.tipo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/*  Colores por tipo  */
+.tipo-card.Normal { background: #A8A77A;}
+.tipo-card.Fuego { background: #EE8130;}
+.tipo-card.Agua { background: #6390F0;}
+.tipo-card.Planta { background: #7AC74C;}
+.tipo-card.Eléctrico { background: #F7D02C;}
+.tipo-card.Hielo { background: #96D9D6;}
+.tipo-card.Lucha { background: #C22E28;}
+.tipo-card.Veneno { background: #A33EA1;}
+.tipo-card.Tierra { background: #E2BF65;}
+.tipo-card.Volador { background: #A98FF3;}
+.tipo-card.Psíquico { background: #F95587;}
+.tipo-card.Bicho { background: #A6B91A;}
+.tipo-card.Roca { background: #B6A136;}
+.tipo-card.Fantasma { background: #735797;}
+.tipo-card.Dragón { background: #6F35FC;}
+.tipo-card.Siniestro { background: #705746;}
+.tipo-card.Acero { background: #B7B7CE;}
+.tipo-card.Hada { background: #D685AD;}
+
+/*  Otros elementos  */
+.info-box {
+    background-color: #f9fafb;
+    border-left: 5px solid #ec407a;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+button, .btn {
+    background-color: #ec407a;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .btn:hover {
+    background-color: #d81b60;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+h4 {
+    margin-top: 15px;
+    color: #ec407a;
+}
+
+/*  Responsive  */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    section, div {
+        padding: 15px;
+    }
+}
+
+/* Esto asegura que cada bloque de info se muestre en línea separada */
+.info-box, h2 {
+    display: block;
+    width: 100%;
+}
+
+/* Si los tipos no están en contenedores, forzamos saltos de línea */
+body > h2 + * {
+    display: block;
+    margin-top: 10px;
+}
+
+/* tipografía más suave dentro de las tarjetas */
+.tipo-card p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/*  TARJETAS DE ATAQUES POKEMON */
+.ataques-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.ataque-card {
+    border-radius: 12px;
+    padding: 15px;
+    text-align: left;
+    color: #fff;
+    font-weight: 500;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ataque-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Colores según tipo de ataque */
+.ataque-card.Normal { background: #A8A77A; }
+.ataque-card.Fuego { background: #EE8130; }
+.ataque-card.Agua { background: #6390F0; }
+.ataque-card.Planta { background: #7AC74C; }
+.ataque-card.Eléctrico { background: #F7D02C; color: #000; }
+.ataque-card.Hielo { background: #96D9D6; color: #000; }
+.ataque-card.Lucha { background: #C22E28; }
+.ataque-card.Veneno { background: #A33EA1; }
+.ataque-card.Tierra { background: #E2BF65; color: #000; }
+.ataque-card.Volador { background: #A98FF3; }
+.ataque-card.Psíquico { background: #F95587; }
+.ataque-card.Bicho { background: #A6B91A; color: #000; }
+.ataque-card.Roca { background: #B6A136; color: #000; }
+.ataque-card.Fantasma { background: #735797; }
+.ataque-card.Dragón { background: #6F35FC; }
+.ataque-card.Siniestro { background: #705746; }
+.ataque-card.Acero { background: #B7B7CE; color: #000; }
+.ataque-card.Hada { background: #D685AD; }
+
+                                                                                    /*Lunes 10/11*/
+/*  TARJETAS DE POKEMON  */
+.pokemon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.pokemon-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pokemon-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    background-color: rgb(222, 175, 236);
+}
+
+.pokemon-card h3 {
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.pokemon-card p {
+    margin-bottom: 6px;
+}
+                                                                                    /*Martes 11/11*/
+/*  GENERACIONES POKEMON  */
+.generacion-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.generacion-card {
+    background-color: #fff;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-top: 5px solid #ec407a;
+}
+
+.generacion-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    background-color: rgb(222, 175, 236);
+}
+
+.generacion-card h3 {
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.generacion-card p {
+    margin-bottom: 6px;
+    color: #444;
+}
+
+/*  USUARIO  */
+.usuario-box {
+    background: #f9fafb;
+    border-left: 5px solid #ec407a;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-top: 20px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.usuario-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    background-color: rgb(222, 175, 236);
+}
+
+.usuario-box strong {
+    color: #ec407a;
+}

@@ -16,7 +16,8 @@ class CoreDB{
             $config['db_host'],
             $config['db_user'],
             $config['db_pass'],
-            $config['db_name']
+            $config['db_name'],
+            3306
         );
 
         if ($conn->connect_error) {

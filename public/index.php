@@ -41,6 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["accion"]) && $_POST["a
     if ($numero <= 0){
         $errors = true;
         $numeroError = "Es obligatorio que introduzcas un número";
+    } elseif ($numero > 1025){
+        $errors = true;
+        $numeroError = "El número de Pokédex debe estar entre 1 y 1025";
     }
      if ($descripcion <=0){
         $errors = true;
@@ -96,13 +99,41 @@ $pokemonsLegendarios = PokemonLegendarioDAO::findAll();
         <div class="container">
             <form method="POST" action="index.php">
                 <input type="hidden" name="accion" value="añadir">
-                
-                <input type="text" name="nombre" placeholder="Nombre del Pokémon" required>
-                <input type="number" name="numeroPokedex" placeholder="Nº Pokedex" required>
-                <input type="text" name="ubicacion" placeholder="Ubicación (ej. Islas Espuma)" required>
-                <input type="text" name="evento" placeholder="Evento de aparición" required>
-                <textarea name="descripcion" placeholder="Descripción del encuentro..." required></textarea>
-                
+
+                <input type="text" name="nombre" placeholder="Nombre del Pokémon"
+                       value="<?= htmlspecialchars($nombre) ?>"
+                       class="<?= empty($nombreError) ? '' : 'input-error' ?>">
+                <?php if (!empty($nombreError)): ?>
+                    <span class="error-message"><?= htmlspecialchars($nombreError) ?></span>
+                <?php endif; ?>
+
+                <input type="number" name="numeroPokedex" placeholder="Nº Pokedex"
+                       value="<?= $numero > 0 ? htmlspecialchars($numero) : '' ?>"
+                       class="<?= empty($numeroError) ? '' : 'input-error' ?>">
+                <?php if (!empty($numeroError)): ?>
+                    <span class="error-message"><?= htmlspecialchars($numeroError) ?></span>
+                <?php endif; ?>
+
+                <input type="text" name="ubicacion" placeholder="Ubicación (ej. Islas Espuma)"
+                       value="<?= htmlspecialchars($ubicacion) ?>"
+                       class="<?= empty($ubicacionError) ? '' : 'input-error' ?>">
+                <?php if (!empty($ubicacionError)): ?>
+                    <span class="error-message"><?= htmlspecialchars($ubicacionError) ?></span>
+                <?php endif; ?>
+
+                <input type="text" name="evento" placeholder="Evento de aparición"
+                       value="<?= htmlspecialchars($evento) ?>"
+                       class="<?= empty($eventoError) ? '' : 'input-error' ?>">
+                <?php if (!empty($eventoError)): ?>
+                    <span class="error-message"><?= htmlspecialchars($eventoError) ?></span>
+                <?php endif; ?>
+
+                <textarea name="descripcion" placeholder="Descripción del encuentro..."
+                          class="<?= empty($descripcionError) ? '' : 'input-error' ?>"><?= htmlspecialchars($descripcion) ?></textarea>
+                <?php if (!empty($descripcionError)): ?>
+                    <span class="error-message"><?= htmlspecialchars($descripcionError) ?></span>
+                <?php endif; ?>
+
                 <button type="submit">Registrar Legendario</button>
             </form>
         </div>

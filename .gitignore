@@ -1,0 +1,10 @@
+# Configuración local con credenciales - nunca subir
+app/core/config.php
+ 
+# Sistema
+.DS_Store
+Thumbs.db
+ 
+# Editor
+.vscode/
+.idea/

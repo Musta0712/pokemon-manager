@@ -15,27 +15,33 @@
 
     ?>
 
+    <?php
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $estaLogueado = isset($_SESSION["origin"]) || isset($_COOKIE["stay-connected"]);
+    ?>
+
     <header class="header">
             <h1>Mundo Pokemon</h1>
     </header>
 
     <!-- desglose de Menús -->
         <nav class="opciones">
-            <div class="card-opciones">
-                <i class="fa-solid fa-user-plus"></i>   
-                <a href="/public/form-signup.php">Crear Usuario</a>            
-            </div>
-            
-             <div class="card-opciones">
-                <i class="fa-solid fa-user-check"></i>    
-                <a href="/public/form-login.php">Inicio de Sesión</a>            
-            </div>
-            <div class="card-opciones">
-                <i class="fa-solid fa-house"></i>  
-                <a href="/public/index.php">Home</a>            
-            </div>
-             <div class="card-opciones">
-                <i class="fa-solid fa-user-slash"></i>   
-                <a href="/public/form-closesession.php">Cerrar Sesión</a>            
-            </div>    
+            <?php if (!$estaLogueado): ?>
+                <div class="card-opciones">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <a href="/public/form-signup.php">Crear Usuario</a>
+                </div>
+
+                <div class="card-opciones">
+                    <i class="fa-solid fa-user-check"></i>
+                    <a href="/public/form-login.php">Inicio de Sesión</a>
+                </div>
+            <?php else: ?>
+                <div class="card-opciones">
+                    <i class="fa-solid fa-user-slash"></i>
+                    <a href="/public/form-closesession.php">Cerrar Sesión</a>
+                </div>
+            <?php endif; ?>
         </nav>

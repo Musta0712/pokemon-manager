@@ -1,27 +1,18 @@
 <?php
-class CoreDB{
+class CoreDB {
 
     static function getConnection(): mysqli {
-    $configPath = __DIR__ . '/config.php';
+        $host = 'sql307.infinityfree.com';
+        $user = 'if0_42737760';
+        $pass = 'Sandia4you';
+        $db   = 'if0_42737760_pokemon';
 
-    if (!file_exists($configPath)) {
-        throw new Exception('No existe el archivo en: ' . $configPath);
+        $conn = @new mysqli($host, $user, $pass, $db);
+
+        if ($conn->connect_error) {
+            throw new Exception("Error de conexión ($host): " . $conn->connect_error);
+        }
+
+        return $conn;
     }
-
-    $config = require $configPath;
-
-    // Esto nos mostrará a qué host se está intentando conectar realmente
-    $conn = @new mysqli(
-        $config['db_host'],
-        $config['db_user'],
-        $config['db_pass'],
-        $config['db_name']
-    );
-
-    if ($conn->connect_error) {
-        throw new Exception("Intento de conexión a {$config['db_host']} falló: " . $conn->connect_error);
-    }
-
-    return $conn;
-}
 }

@@ -183,4 +183,4 @@ $pokemonsLegendarios = PokemonLegendarioDAO::findAll();
     <?php include $_SERVER['DOCUMENT_ROOT'] . "/resources/views/layouts/footer.php";?>
     
 </body>
-</html>resultado
+</html>

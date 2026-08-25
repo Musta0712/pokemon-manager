@@ -1,88 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik:wght@400;500;700;800&display=swap');
+
+:root {
+    --pokedex-red: #E3350D;
+    --pokedex-red-dark: #A82305;
+    --pokedex-red-darker: #7A1A03;
+    --bezel: #C6C6C6;
+    --bezel-dark: #9B9B9B;
+    --screen: #F4F4F0;
+    --screen-line: #E4E4DC;
+    --ink: #232323;
+    --blue-lens: #2E5CB8;
+    --blue-lens-light: #7FB2FF;
+    --yellow: #FFCB05;
+    --yellow-dark: #E0AC00;
+    --green-light: #46D160;
+    --red-light: #FF5A4E;
+
+    --pixel-cut: 10px;
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Verdana', sans-serif;
+    font-family: 'Rubik', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    background: linear-gradient(to bottom, #f5f5f5, #d1ecf1);
-    color: #333;
+    background:
+        radial-gradient(circle at 8% 12%, rgba(46,92,184,0.06) 0, transparent 45%),
+        radial-gradient(circle at 92% 85%, rgba(227,53,13,0.05) 0, transparent 45%),
+        #EDEEE9;
+    color: var(--ink);
     min-height: 100vh;
+    padding-bottom: 2rem;
 }
 
+/* Utilidad: esquinas en escalón, estilo pantalla retro */
+.pixel-corners {
+    clip-path: polygon(
+        0 var(--pixel-cut), var(--pixel-cut) var(--pixel-cut), var(--pixel-cut) 0,
+        calc(100% - var(--pixel-cut)) 0, calc(100% - var(--pixel-cut)) var(--pixel-cut), 100% var(--pixel-cut),
+        100% calc(100% - var(--pixel-cut)), calc(100% - var(--pixel-cut)) calc(100% - var(--pixel-cut)), calc(100% - var(--pixel-cut)) 100%,
+        var(--pixel-cut) 100%, var(--pixel-cut) calc(100% - var(--pixel-cut)), 0 calc(100% - var(--pixel-cut))
+    );
+}
+
+:focus-visible {
+    outline: 3px solid var(--yellow);
+    outline-offset: 3px;
+}
+
+/* ===== HEADER: carcasa superior de la Pokédex ===== */
 
 .header {
-    background: #ffcb05;
-    color: #3b4cca;
-    text-align: center;
-    padding: 1.5rem 0;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    position: relative;
+    background: linear-gradient(180deg, var(--pokedex-red) 0%, var(--pokedex-red-dark) 100%);
+    padding: 1.6rem 1.5rem 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    border-bottom: 6px solid var(--pokedex-red-darker);
+    box-shadow: 0 6px 0 rgba(0,0,0,0.15);
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    left: 1.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--blue-lens-light), var(--blue-lens) 55%, #173a75 100%);
+    box-shadow:
+        0 0 0 4px #fff,
+        0 0 0 6px var(--pokedex-red-darker),
+        inset 0 0 6px rgba(0,0,0,0.4);
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    right: 1.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--green-light);
+    box-shadow:
+        0 0 0 3px var(--pokedex-red-darker),
+        18px 0 0 -1px var(--yellow),
+        18px 0 0 2px var(--pokedex-red-darker),
+        36px 0 0 -1px var(--red-light),
+        36px 0 0 2px var(--pokedex-red-darker);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .header::after {
+        animation: blink-lights 2.4s infinite steps(1);
+    }
+}
+
+@keyframes blink-lights {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
 }
 
 .header h1 {
-    font-size: 2.5rem;
-    text-shadow: 1px 1px 2px #000;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.4rem;
+    color: var(--yellow);
+    text-shadow: 2px 2px 0 var(--pokedex-red-darker);
+    letter-spacing: 1px;
+    text-align: center;
 }
 
+@media (max-width: 640px) {
+    .header h1 { font-size: 0.95rem; }
+    .header::before { left: 0.9rem; width: 26px; height: 26px; }
+    .header::after { display: none; }
+}
+
+/* ===== NAV: fila de botones tipo teclas ===== */
 
 nav.opciones {
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    padding: 1rem;
+    gap: 0.8rem;
+    padding: 0.9rem 1rem;
     flex-wrap: wrap;
-    background: #3b4cca;
+    background: var(--bezel-dark);
+    border-bottom: 3px solid #7d7d7d;
 }
 
 .card-opciones {
-    background: #ff1c1c;
+    background: var(--pokedex-red);
     color: #fff;
-    padding: 0.8rem 1.2rem;
-    border-radius: 8px;
+    padding: 0.7rem 1.1rem;
     text-align: center;
-    transition: transform 0.2s, background 0.2s;
-    cursor: pointer; 
+    transition: transform 0.15s ease, background 0.15s ease;
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    box-shadow: 0 3px 0 var(--pokedex-red-darker);
 }
 
 .card-opciones i {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .card-opciones a {
     color: #fff;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 0.85rem;
 }
 
 .card-opciones:hover {
-    background: #ffcc00; 
-    color: #3b4cca;
-    transform: scale(1.05);
+    background: var(--yellow);
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 var(--yellow-dark);
 }
 
 .card-opciones:hover a {
-    color: #3b4cca;
+    color: var(--pokedex-red-darker);
+}
+
+/* ===== PANTALLA: contenedor principal ===== */
+
+main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.titulo {
+    text-align: center;
+    margin: 2rem auto 1rem;
+    padding: 1rem 1.5rem;
+    background: var(--ink);
+    color: var(--green-light);
+    max-width: 640px;
+}
+
+.titulo h1 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+}
+
+.titulo h2 {
+    font-family: 'Rubik', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--screen-line);
+    margin-top: 0.5rem;
+}
+
+hr {
+    border: none;
+    border-top: 3px dashed var(--bezel-dark);
+    margin: 2rem auto;
+    max-width: 640px;
 }
 
 .container {
-    max-width: 500px;
-    margin: 2rem auto;
-    background: #fff;
+    max-width: 560px;
+    margin: 1.5rem auto;
+    background: var(--screen);
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    border: 3px solid var(--bezel-dark);
+    box-shadow:
+        0 0 0 6px var(--bezel),
+        0 8px 0 rgba(0,0,0,0.12);
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.015) 0px,
+        rgba(0,0,0,0.015) 1px,
+        transparent 1px,
+        transparent 3px
+    );
 }
 
 .form-container h2 {
     text-align: center;
     margin-bottom: 1.5rem;
-    color: #3b4cca;
+    color: var(--pokedex-red);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
 }
+
+/* ===== FORMULARIOS ===== */
 
 form {
     display: flex;
@@ -90,115 +249,211 @@ form {
     gap: 1rem;
 }
 
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.form-group label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--blue-lens);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 form input, form textarea {
-    padding: 0.8rem;
-    border: 2px solid #3b4cca;
-    border-radius: 6px;
+    padding: 0.75rem 0.9rem;
+    border: 2px solid var(--blue-lens);
+    background: #fff;
     font-size: 1rem;
     outline: none;
     transition: border 0.2s, box-shadow 0.2s;
+    color: var(--ink);
+}
+
+form input::placeholder, form textarea::placeholder {
+    color: #9aa1ac;
 }
 
 form input:focus, form textarea:focus {
-    border-color: #ffcb05;
-    box-shadow: 0 0 8px rgba(255,203,5,0.5);
+    border-color: var(--yellow-dark);
+    box-shadow: 0 0 0 3px rgba(255,203,5,0.35);
 }
 
 form textarea {
     resize: vertical;
-    min-height: 80px;
+    min-height: 90px;
 }
 
 button[type="submit"] {
-    background: #3b4cca;
-    color: #ffcb05;
-    padding: 0.8rem;
-    font-size: 1rem;
-    font-weight: bold;
+    background: var(--pokedex-red);
+    color: #fff;
+    padding: 0.9rem;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
     border: none;
-    border-radius: 6px;
     cursor: pointer;
-    transition: background 0.3s, color 0.3s;
+    transition: transform 0.12s ease, background 0.15s ease;
+    box-shadow: 0 4px 0 var(--pokedex-red-darker);
 }
 
 button[type="submit"]:hover {
-    background: #ffcb05;
-    color: #3b4cca;
+    background: #ff4a26;
 }
 
+button[type="submit"]:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 var(--pokedex-red-darker);
+}
 
 .input-error {
-    border-color: #ff1c1c !important;
-    box-shadow: 0 0 8px rgba(255,28,28,0.5);
+    border-color: var(--red-light) !important;
+    box-shadow: 0 0 0 3px rgba(255,90,78,0.3) !important;
 }
 
 .p-error, .error-message {
-    color: #ff1c1c;
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin-top: 0.2rem;
+    color: var(--red-light);
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-top: -0.4rem;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+.form-footer {
+    text-align: center;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    color: #555;
 }
 
-table thead {
-    background: #3b4cca;
-    color: #ffcb05;
+.form-footer a {
+    color: var(--blue-lens);
+    font-weight: 700;
+    text-decoration: none;
 }
 
-table th, table td {
-    padding: 0.8rem;
-    text-align: left;
-    border-bottom: 1px solid #ccc;
-}
-
-table tbody tr:hover {
-    background: #ffcb05;
-    color: #3b4cca;
-    font-weight: bold;
-}
-
-table button {
-    background: #ff1c1c;
-    color: #fff;
-    border: none;
-    padding: 0.4rem 0.8rem;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-table button:hover {
-    background: #3b4cca;
-    color: #ffcb05;
+.form-footer a:hover {
+    text-decoration: underline;
 }
 
 .checkbox-group {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
+.checkbox-group input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--pokedex-red);
+}
+
+/* ===== TABLA: lista de avistamientos ===== */
+
+.container:has(table) {
+    max-width: 800px;
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.25rem;
+    min-width: 480px;
+}
+
+table thead {
+    background: var(--blue-lens);
+    color: #fff;
+}
+
+table th {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
+}
+
+table th, table td {
+    padding: 0.9rem 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid var(--screen-line);
+}
+
+table td:first-child {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.7rem;
+    color: var(--pokedex-red);
+}
+
+table tbody tr:hover {
+    background: #FFF4CC;
+}
+
+table button {
+    background: var(--pokedex-red);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 0.9rem;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.8rem;
+    box-shadow: 0 3px 0 var(--pokedex-red-darker);
+    transition: transform 0.12s ease;
+}
+
+table button:hover {
+    background: #ff4a26;
+}
+
+table button:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 var(--pokedex-red-darker);
+}
+
+/* ===== FOOTER ===== */
 
 footer {
-    background: #3b4cca;
-    color: #ffcb05;
+    background: var(--ink);
+    color: var(--green-light);
     text-align: center;
-    padding: 1rem;
-    margin-top: 2rem;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+    padding: 1.2rem;
+    margin-top: 2.5rem;
+    font-size: 0.8rem;
+    line-height: 1.6;
 }
 
+footer p:first-child {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.65rem;
+    color: var(--yellow);
+    margin-bottom: 0.5rem;
+}
+
+/* ===== MENSAJES ===== */
+
 .success {
-    background-color: #d4edda;
-    color: #155724;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 15px;
+    background: #E4F9E5;
+    color: #1E7A2E;
+    border: 2px solid var(--green-light);
+    padding: 0.9rem;
+    margin: 1rem auto;
+    max-width: 560px;
     text-align: center;
+    font-weight: 700;
+}
+
+main > p, body > p {
+    text-align: center;
+    background: #FFE8E5;
+    color: var(--pokedex-red-dark);
+    border: 2px solid var(--red-light);
+    padding: 0.8rem 1.2rem;
+    max-width: 560px;
+    margin: 1rem auto;
+    font-weight: 700;
+    font-size: 0.9rem;
 }
